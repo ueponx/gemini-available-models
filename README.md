@@ -1,10 +1,11 @@
 # Gemini API モデル一覧取得ツール
 
 Google Gemini APIで使用可能なモデルの一覧を取得し、詳細情報を表示するPythonスクリプトです。
+このドキュメントはLLMによって生成を行っています。
 
 ## 概要
 
-このツールを使用することで、以下の情報を取得できます：
+このツールを使用することで、以下の情報を取得できます。
 
 - Gemini APIで使用可能な全モデルのリスト
 - 各モデルの詳細情報（トークン上限、サポートメソッドなど）
@@ -31,25 +32,39 @@ Google Gemini APIで使用可能なモデルの一覧を取得し、詳細情報
 ```bash
 git clone https://github.com/ueponx/gemini-available-models.git
 cd gemini-available-models
+
+# デフォルトの仮想環境を使用する場合
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+
+# uvを使用して仮想環境を使用する場合
+uv venv
+source .venv/bin/activate
+uv pip install -r requirements.txt
 ```
 
 ### 2. 必要なパッケージのインストール
 
 ```bash
-pip install google-generativeai python-dotenv
+# デフォルトの仮想環境を使用する場合
+pip install -r requirements.txt
+
+# uvを使用して仮想環境を使用する場合
+uv pip install -r requirements.txt
 ```
 
-または、requirements.txtを使用する場合：
+または、requirements.txtを使用しない場合
 
 ```bash
-pip install -r requirements.txt
+pip install google-generativeai python-dotenv
 ```
 
 ## 使い方
 
 ### 1. .envファイルの作成
 
-プロジェクトのルートディレクトリに`.env`ファイルを作成し、以下の内容を記述します：
+プロジェクトのルートディレクトリに`.env`ファイルを作成し、以下の内容を記述します。
 
 ```env
 GOOGLE_API_KEY=your_api_key_here
@@ -92,7 +107,7 @@ python list_gemini_models.py
 
 ## モデル名の指定方法
 
-.envファイルでのモデル名指定は、以下のどちらの形式でも動作します：
+.envファイルでのモデル名指定は、以下のどちらの形式でも動作します。
 
 ```env
 # プレフィックスなし
@@ -106,7 +121,7 @@ GEMINI_MODEL=models/gemini-2.5-pro
 
 ## 主要なモデル
 
-2025年11月時点で利用可能な主要モデル（Gemini 2.5以上）：
+2025年11月時点で利用可能な主要モデル（Gemini 2.5以上）。
 
 ### 汎用モデル
 
@@ -146,25 +161,6 @@ GEMINI_MODEL=models/gemini-2.5-pro
 - **リアルタイム対話**: 音声対話やライブ通信には`bidiGenerateContent`
 - **料金見積もり**: 事前に`countTokens`でトークン数を確認
 
-## トラブルシューティング
-
-### エラー: "404 Model is not found"
-
-**原因:** モデル名の指定が正しくない可能性があります。
-
-**解決方法:**
-1. スクリプトを実行して利用可能なモデル一覧を確認
-2. .envファイルのモデル名を正しいものに修正
-
-### エラー: "API key not valid"
-
-**原因:** APIキーが正しく設定されていません。
-
-**解決方法:**
-1. .envファイルが正しい場所に配置されているか確認
-2. APIキーが正しくコピーされているか確認
-3. APIキーにGemini APIの使用権限があるか確認
-
 ## セキュリティに関する注意
 
 ⚠️ **重要:** `.env`ファイルには機密情報（APIキー）が含まれています。
@@ -173,29 +169,9 @@ GEMINI_MODEL=models/gemini-2.5-pro
 - APIキーを公開リポジトリにコミットしないでください
 - APIキーを他人と共有しないでください
 
-### .gitignoreの例
-
-```gitignore
-# 環境変数ファイル
-.env
-.env.local
-.env.*.local
-
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-```
-
 ## ライセンス
 
 MIT License
-
-## 作成者
-
-ueponx
 
 ## 参考リンク
 
@@ -203,9 +179,3 @@ ueponx
 - [Gemini API Documentation](https://ai.google.dev/docs)
 - [Google Generative AI Python SDK](https://github.com/google/generative-ai-python)
 
-## 更新履歴
-
-- 2025-11-15: 初版リリース
-  - モデル一覧取得機能
-  - .envファイル対応
-  - モデル名プレフィックス自動処理
